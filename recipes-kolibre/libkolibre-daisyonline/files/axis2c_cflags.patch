@@ -1,0 +1,10 @@
+Index: git/libkolibre-daisyonline.pc.in
+===================================================================
+--- git.orig/libkolibre-daisyonline.pc.in
++++ git/libkolibre-daisyonline.pc.in
+@@ -8,4 +8,4 @@ Description: API for using daisyonline s
+ Requires:
+ Version: @PACKAGE_VERSION@
+ Libs: -L${libdir} -lkolibre-daisyonline
+-Cflags: -I${includedir}/libkolibre/daisyonline-@PACKAGE_VERSION@ @AXIS2C_CFLAGS@
++Cflags: -I${includedir}/libkolibre/daisyonline-@PACKAGE_VERSION@ -I/usr/include/axis2-1.6.0

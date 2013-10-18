@@ -1,0 +1,15 @@
+[Unit]
+Description=Kolibre Sample Client
+After=systemd-user-sessions.service
+Wants=systemd-user-sessions.service
+
+[Service]
+Restart=always
+TimeoutStopSec=30
+StandardOutput=null
+ExecStart=/usr/bin/KolibreSampleClient.sh
+
+[Install]
+WantedBy=multi-user.target
+Alias=kolibre.service
+

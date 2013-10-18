@@ -1,0 +1,13 @@
+Index: git/src/Makefile.am
+===================================================================
+--- git.orig/src/Makefile.am
++++ git/src/Makefile.am
+@@ -90,7 +90,7 @@ lib_LTLIBRARIES = libkolibre-daisyonline
+ 
+ libkolibre_daisyonline_la_SOURCES = $(SRCS)
+ libkolibre_daisyonline_la_LIBADD = $(top_builddir)/src/stubs/libdaisyonlinestubs.la
+-libkolibre_daisyonline_la_LDFLAGS = -version-info $(VERSION_INFO) @LOG4CXX_LIBS@ @AXIS2C_CFLAGS@
++libkolibre_daisyonline_la_LDFLAGS = -version-info $(VERSION_INFO) @LOG4CXX_LIBS@ @AXIS2C_LIBS@
+ libkolibre_daisyonline_la_CXXFLAGS = -I$(top_srcdir)/src/stubs @LOG4CXX_CFLAGS@ @AXIS2C_CFLAGS@
+ 
+ EXTRA_DIST = axis2c_client_home.h

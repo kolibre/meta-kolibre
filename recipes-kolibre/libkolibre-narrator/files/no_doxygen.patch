@@ -1,0 +1,29 @@
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -67,11 +67,6 @@ AX_BOOST_SIGNALS
+ AC_PROG_CC
+ ACX_PTHREAD
+ 
+-DX_DOXYGEN_FEATURE(ON)
+-DX_HTML_FEATURE(ON)
+-DX_PDF_FEATURE(ON)
+-DX_INIT_DOXYGEN([libkolibre-narrator], doxygen.cfg, [doxygen-doc])
+-
+ # Checks for libraries.
+ 
+ AC_CHECK_LIB(gst, sqlite3)
+Index: git/Makefile.am
+===================================================================
+--- git.orig/Makefile.am
++++ git/Makefile.am
+@@ -22,8 +22,6 @@ SUBDIRS = src tests $(subdirs)
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libkolibre-narrator.pc
+ 
+-include doxygen.am
+-
+ AM_DISTCHECK_CONFIGURE_FLAGS = "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}"
+ 
+ promptdir = $(datadir)/libkolibre/narrator

@@ -1,0 +1,13 @@
+Index: git/src/PortAudio.cpp
+===================================================================
+--- git.orig/src/PortAudio.cpp
++++ git/src/PortAudio.cpp
+@@ -87,7 +87,7 @@ bool PortAudio::open(long rate, int chan
+         mOutputParameters.device = default_device; /* default output device */
+         mOutputParameters.channelCount = channels;
+         mOutputParameters.sampleFormat = paFloat32;
+-        mOutputParameters.suggestedLatency = 0; //Pa_GetDeviceInfo( mOutputParameters.device )->defaultLowOutputLatency;
++        mOutputParameters.suggestedLatency = Pa_GetDeviceInfo( mOutputParameters.device )->defaultLowOutputLatency;
+         mOutputParameters.hostApiSpecificStreamInfo = NULL;
+ 
+         const PaDeviceInfo* devinfo = Pa_GetDeviceInfo(mOutputParameters.device);

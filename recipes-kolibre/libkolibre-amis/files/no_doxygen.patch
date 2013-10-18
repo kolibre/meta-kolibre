@@ -1,0 +1,27 @@
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -70,11 +70,6 @@ dnl ------------------------------------
+ dnl Doxygen settings
+ dnl -----------------------------------------------
+ 
+-DX_DOXYGEN_FEATURE(ON)
+-DX_HTML_FEATURE(ON)
+-DX_PDF_FEATURE(ON)
+-DX_INIT_DOXYGEN([kolibre-amis], doxygen.cfg, [doxygen-doc])
+-
+ # Checks for libraries.
+ 
+ dnl -----------------------------------------------
+Index: git/Makefile.am
+===================================================================
+--- git.orig/Makefile.am
++++ git/Makefile.am
+@@ -22,6 +22,4 @@ SUBDIRS = src tests
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libkolibre-amis.pc
+ 
+-include doxygen.am
+-
+ AM_DISTCHECK_CONFIGURE_FLAGS = "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}"

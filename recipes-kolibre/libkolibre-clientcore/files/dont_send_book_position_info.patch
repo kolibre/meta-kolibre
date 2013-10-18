@@ -1,0 +1,18 @@
+Index: git/src/DaisyNavi.cpp
+===================================================================
+--- git.orig/src/DaisyNavi.cpp
++++ git/src/DaisyNavi.cpp
+@@ -514,9 +514,10 @@ bool DaisyNavi::playerTimeSlot(Player::t
+                 bookTotalms += bi->mTotalTime.tm_min * 60 * 1000;
+                 bookTotalms += bi->mTotalTime.tm_sec * 1000;
+ 
+-                BookPositionInfo position(bookCurrentms, bookTotalms);
+-                cq2::Command<BookPositionInfo> info(position);
+-                info();
++                // We don't need book position info when we don't have a GUI
++                //BookPositionInfo position(bookCurrentms, bookTotalms);
++                //cq2::Command<BookPositionInfo> info(position);
++                //info();
+                 lastsecond = td.current / 1000;
+                 pthread_mutex_lock(playerCallbackMutex);
+                 lastReportedPlayerPosition = bookCurrentms / 1000;

@@ -1,0 +1,38 @@
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -120,30 +120,9 @@ AC_ARG_WITH([tidy], [AS_HELP_STRING([--w
+ [], [with_tidy=yes])
+ 
+ AS_IF([test "x$with_tidy" = "xyes"],
+-[HAVE_LIBTIDY=no
+-AC_MSG_CHECKING([for libtidy])
+-
+-if test -f ${prefix}/include/tidy.h; then
+-    HAVE_LIBTIDY=yes
+-    LIBTIDY_CFLAGS="-I${prefix}/include"
+-    LIBTIDY_LIBS="-L${prefix}/lib -ltidy"
+-else
+-    if test -f /usr/include/tidy/tidy.h; then
+-        HAVE_LIBTIDY=yes
+-        LIBTIDY_CFLAGS="-I/usr/include/tidy"
+-        LIBTIDY_LIBS="-L/usr/lib -ltidy"
+-    fi
+-fi
+-
+-if test "x$HAVE_LIBTIDY" = "xno"
+-then
+-    AC_MSG_RESULT([no])
+-    AC_MSG_FAILURE([libtidy test failed (--without-tidy to disable)])
+-else
+-    AC_DEFINE([HAVE_LIBTIDY], [1],
+-        [Define when we have libtidy])
+-fi
+-
++[AC_MSG_CHECKING([for libtidy])
++AC_CHECK_HEADER(tidy.h, [LIBTIDY_LIBS=-ltidy], [AC_MSG_ERROR([**libtidy is needed to build libkolibre-xmlreader **])])
++AC_DEFINE([HAVE_LIBTIDY], [1], [Define when we have libtidy])
+ AC_MSG_RESULT([yes])])
+ 
+ AC_SUBST(LIBTIDY_CFLAGS)
