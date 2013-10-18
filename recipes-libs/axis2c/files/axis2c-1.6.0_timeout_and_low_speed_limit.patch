@@ -1,0 +1,14 @@
+Index: axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+===================================================================
+--- axis2c-src-1.6.0.orig/src/core/transport/http/sender/libcurl/axis2_libcurl.c
++++ axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+@@ -496,6 +496,9 @@ axis2_libcurl_send(
+         /* kim: Shorten the timeout on initial connections */
+         curl_easy_setopt (handler, CURLOPT_CONNECTTIMEOUT, 15);
+ 
++        /* jonas: Tell curl to timeout of no data is coming through */
++        curl_easy_setopt (handler, CURLOPT_LOW_SPEED_LIMIT, 1000);
++        curl_easy_setopt (handler, CURLOPT_LOW_SPEED_TIME, 15);
+ 
+         if (send_via_put)
+         {

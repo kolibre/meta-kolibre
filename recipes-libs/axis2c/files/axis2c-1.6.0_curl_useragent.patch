@@ -1,0 +1,54 @@
+diff --git a/src/core/transport/http/sender/libcurl/axis2_libcurl.c b/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+index 42aedd8..e291d3c 100644
+--- a/src/core/transport/http/sender/libcurl/axis2_libcurl.c
++++ b/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+@@ -138,10 +138,48 @@ axis2_libcurl_send(
+     AXIS2_PARAM_CHECK(env->error, data, AXIS2_FAILURE);
+     AXIS2_PARAM_CHECK(env->error, data->handler, AXIS2_FAILURE);
+ 
++    /* Get AXIS2_HTTP_USER_AGENT property from env */
++    axutil_property_t *user_agent_property = NULL;
++    axis2_char_t *user_agent_value = NULL;
++    axis2_char_t *user_agent_header = NULL;
++
++    axiom_node_serialize(data_out, env, om_output);
++    user_agent_property =
++        (axutil_property_t *)
++        axis2_msg_ctx_get_property(msg_ctx, env,
++                                   AXIS2_HTTP_HEADER_USER_AGENT);
++
++    if (user_agent_property)
++    {
++        user_agent_value =
++            (axis2_char_t *)
++            axutil_property_get_value(user_agent_property, env);
++
++        if (user_agent_value)
++        {
++            AXIS2_LOG_DEBUG (env->log, AXIS2_LOG_SI, "%s property set to: %s", AXIS2_HTTP_HEADER_USER_AGENT, user_agent_value);
++            user_agent_header =
++                AXIS2_MALLOC (env->allocator,
++                              (axutil_strlen (AXIS2_HTTP_HEADER_USER_AGENT) + axutil_strlen(user_agent_value) + 3) * sizeof(axis2_char_t));
++
++            sprintf(user_agent_header, "%s: %s", AXIS2_HTTP_HEADER_USER_AGENT, user_agent_value);
++        }
++    }
++
+     handler = data->handler;
+     curl_easy_reset(handler);
+     curl_easy_setopt(handler, CURLOPT_ERRORBUFFER, data->errorbuffer);
+-    headers = curl_slist_append(headers, AXIS2_HTTP_HEADER_USER_AGENT_AXIS2C);
++
++    if(user_agent_value)
++    {
++        headers = curl_slist_append(headers, user_agent_header);
++        /* curl_slist_append() copies the string, free our string */
++        AXIS2_FREE (env->allocator, user_agent_header);
++    }
++    else
++    {
++        headers = curl_slist_append(headers, AXIS2_HTTP_HEADER_USER_AGENT_AXIS2C);
++    }
+     headers = curl_slist_append(headers, AXIS2_HTTP_HEADER_ACCEPT_);
+     headers = curl_slist_append(headers, AXIS2_HTTP_HEADER_EXPECT_);
+ 

@@ -1,0 +1,28 @@
+Index: gst-fluendo-mp3-0.10.23/src/flump3dec-0_10.c
+===================================================================
+--- gst-fluendo-mp3-0.10.23.orig/src/flump3dec-0_10.c
++++ gst-fluendo-mp3-0.10.23/src/flump3dec-0_10.c
+@@ -172,6 +172,7 @@ _total_bytes (GstFluMp3Dec * dec, guint6
+   gst_query_set_duration (query, GST_FORMAT_BYTES, -1);
+
+   if (!gst_pad_query (peer, query)) {
++    gst_query_unref (query);
+     gst_object_unref (peer);
+     return FALSE;
+   }
+@@ -180,6 +181,7 @@ _total_bytes (GstFluMp3Dec * dec, guint6
+
+   gst_query_parse_duration (query, NULL, (gint64 *) total);
+
++  gst_query_unref (query);
+   return TRUE;
+ }
+
+@@ -784,6 +786,7 @@ gst_flump3dec_src_query (GstPad * pad, G
+        * format */
+       if (format != GST_FORMAT_BYTES && format != GST_FORMAT_DEFAULT &&
+           gst_pad_query (peer, query)) {
++        gst_query_unref (query);
+         gst_object_unref (peer);
+         res = TRUE;
+         goto beach;
