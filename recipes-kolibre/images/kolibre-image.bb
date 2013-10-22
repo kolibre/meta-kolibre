@@ -8,3 +8,5 @@ DISTRO_FEATURES += "pulseaudio keyboard"
 IMAGE_INSTALL += "alsa-utils kolibre-sample-client autoload-bcm2835"
 
 export IMAGE_BASENAME = "kolibre-image"
+
+IMAGE_ROOTFS_EXTRA_SPACE = "524000"
