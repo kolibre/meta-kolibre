@@ -1,4 +1,4 @@
-meta_kolibre
+meta-kolibre
 ============
 
 Kolibre SW Layer. 
