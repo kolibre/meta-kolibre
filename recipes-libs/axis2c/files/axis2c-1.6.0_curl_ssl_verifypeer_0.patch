@@ -1,0 +1,12 @@
+--- wso2-wsf-cpp-src-2.1.0_org/wsf_c/axis2c/src/core/transport/http/sender/libcurl/axis2_libcurl.c      2009-09-23 08:53:11.000000000 +0300
++++ wso2-wsf-cpp-src-2.1.0/wsf_c/axis2c/src/core/transport/http/sender/libcurl/axis2_libcurl.c          2009-10-23 16:46:35.000000000 +0300
+@@ -509,6 +509,9 @@
+         }
+     }
+
++    /* johan: tell curl not to verify certificate */
++    curl_easy_setopt(handler, CURLOPT_SSL_VERIFYPEER, 0);
++
+     curl_easy_setopt(handler, CURLOPT_HTTPHEADER, headers);
+     curl_easy_setopt(handler, CURLOPT_WRITEFUNCTION,
+                      axis2_libcurl_write_memory_callback);

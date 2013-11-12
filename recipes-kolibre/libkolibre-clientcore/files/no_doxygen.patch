@@ -1,0 +1,28 @@
+Index: git/Makefile.am
+===================================================================
+--- git.orig/Makefile.am
++++ git/Makefile.am
+@@ -25,7 +25,5 @@ endif
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libkolibre-clientcore.pc
+ 
+-include doxygen.am
+-
+ EXTRA_DIST = samples
+ AM_DISTCHECK_CONFIGURE_FLAGS = "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}"
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -69,11 +69,6 @@ dnl ------------------------------------
+ dnl Doxygen settings
+ dnl -----------------------------------------------
+ 
+-DX_DOXYGEN_FEATURE(ON)
+-DX_HTML_FEATURE(ON)
+-DX_PDF_FEATURE(ON)
+-DX_INIT_DOXYGEN([kolibre-clientcore], doxygen.cfg, [doxygen-doc])
+-
+ # Checks for libraries.
+ 
+ dnl -----------------------------------------------

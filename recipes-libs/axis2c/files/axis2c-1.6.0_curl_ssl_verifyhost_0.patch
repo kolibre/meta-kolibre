@@ -1,0 +1,13 @@
+Index: axis2c-1.6.0-r4/axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+===================================================================
+--- axis2c-1.6.0-r4.orig/axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c	2011-12-05 13:34:06.000000000 +0200
++++ axis2c-1.6.0-r4/axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c	2011-12-05 14:07:58.000000000 +0200
+@@ -552,7 +552,7 @@
+ 
+     /* johan: tell curl not to verify certificate */
+     curl_easy_setopt(handler, CURLOPT_SSL_VERIFYPEER, 0);
+-
++    curl_easy_setopt(handler, CURLOPT_SSL_VERIFYHOST, 0);
+     curl_easy_setopt(handler, CURLOPT_HTTPHEADER, headers);
+     curl_easy_setopt(handler, CURLOPT_WRITEFUNCTION,
+                      axis2_libcurl_write_memory_callback);

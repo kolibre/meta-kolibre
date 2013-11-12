@@ -1,0 +1,14 @@
+Index: axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+===================================================================
+--- axis2c-src-1.6.0.orig/src/core/transport/http/sender/libcurl/axis2_libcurl.c
++++ axis2c-src-1.6.0/src/core/transport/http/sender/libcurl/axis2_libcurl.c
+@@ -493,6 +493,9 @@ axis2_libcurl_send(
+             curl_easy_setopt(handler, CURLOPT_POSTFIELDS, output_stream);
+         }
+ 
++        /* kim: Shorten the timeout on initial connections */
++        curl_easy_setopt (handler, CURLOPT_CONNECTTIMEOUT, 15);
++
+ 
+         if (send_via_put)
+         {

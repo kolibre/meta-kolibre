@@ -1,0 +1,83 @@
+diff --git a/Makefile.am b/Makefile.am
+index 0746e14..7597b30 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,7 +1,7 @@
+ datadir=$(prefix)
+ logsdir=$(prefix)/logs
+ docsdir=$(prefix)
+-includedir=$(prefix)/include/axis2-1.6.0
++library_includedir=${includedir}/axis2-1.6.0
+ wsdl2cdir=$(prefix)/bin/tools/wsdl2c
+ 
+ 
+@@ -9,7 +9,7 @@ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = axis2c.pc
+ 
+ SUBDIRS = util $(GUTHTHILA_DIR) axiom neethi src $(TESTDIR) include ides tools/tcpmon tools/md5
+-include_HEADERS=$(top_builddir)/include/*.h
++library_include_HEADERS=$(top_builddir)/include/*.h
+ data_DATA= samples/server/axis2.xml README \
+ 	INSTALL CREDITS COPYING NEWS NOTICE AUTHORS
+ logs_DATA=
+diff --git a/axiom/Makefile.am b/axiom/Makefile.am
+index a468a0c..88e158f 100644
+--- a/axiom/Makefile.am
++++ b/axiom/Makefile.am
+@@ -1,7 +1,7 @@
+ datadir=$(prefix)
+ SUBDIRS = src $(TESTDIR) include
+-includedir=$(prefix)/include/axis2-1.6.0/
+-include_HEADERS=$(top_builddir)/include/*.h
++library_includedir=${includedir}/axis2-1.6.0/
++library_include_HEADERS=$(top_builddir)/include/*.h
+ data_DATA= INSTALL README AUTHORS NEWS CREDITS LICENSE COPYING
+ EXTRA_DIST = build.sh autogen.sh CREDITS LICENSE
+ dist-hook:
+diff --git a/guththila/Makefile.am b/guththila/Makefile.am
+index b94c0c2..6486192 100644
+--- a/guththila/Makefile.am
++++ b/guththila/Makefile.am
+@@ -1,7 +1,7 @@
+ datadir=$(prefix)
+ SUBDIRS = src 
+-includedir=$(prefix)/include/axis2-1.6.0/
+-include_HEADERS=$(top_builddir)/include/*.h
++library_includedir=${includedir}/axis2-1.6.0/
++library_include_HEADERS=$(top_builddir)/include/*.h
+ data_DATA= INSTALL README AUTHORS NEWS LICENSE COPYING
+ #EXTRA_DIST = build.sh autogen.sh CREDITS LICENSE
+ dist-hook:
+diff --git a/neethi/Makefile.am b/neethi/Makefile.am
+index 32865c7..7ffc864 100644
+--- a/neethi/Makefile.am
++++ b/neethi/Makefile.am
+@@ -1,3 +1,3 @@
+ SUBDIRS = src test
+-includedir=$(prefix)/include/axis2-1.6.0
+-include_HEADERS=$(top_builddir)/include/*.h
++library_includedir=${includedir}/axis2-1.6.0
++library_include_HEADERS=$(top_builddir)/include/*.h
+diff --git a/util/Makefile.am b/util/Makefile.am
+index a7b0aaa..d2a6ff4 100644
+--- a/util/Makefile.am
++++ b/util/Makefile.am
+@@ -1,8 +1,8 @@
+ datadir=$(prefix)
+ tmpincludedir=$(prefix)/include/axis2-1.6.0/
+-includedir=$(prefix)/include/axis2-1.6.0/
++library_includedir=${includedir}/axis2-1.6.0/
+ SUBDIRS = src $(TESTDIR) include
+-include_HEADERS=$(top_builddir)/include/*.h
++library_include_HEADERS=$(top_builddir)/include/*.h
+ tmpinclude_DATA=config.h
+ data_DATA= INSTALL README AUTHORS NEWS CREDITS LICENSE COPYING
+ EXTRA_DIST = build.sh autogen.sh CREDITS LICENSE
+diff --git a/util/include/Makefile.am b/util/include/Makefile.am
+index 3cf1d6d..99b3264 100644
+--- a/util/include/Makefile.am
++++ b/util/include/Makefile.am
+@@ -1,2 +1,2 @@
+-includedir=$(prefix)/include/axis2-1.6.0/
++library_includedir=${includedir}/axis2-1.6.0/
+ nobase_include_HEADERS= platforms/axutil_platform_auto_sense.h platforms/unix/*.h platforms/windows/*.h

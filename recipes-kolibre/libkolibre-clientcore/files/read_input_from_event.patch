@@ -1,0 +1,256 @@
+From b43329ec4e3118eb50a150e01ac62d7e19bcf65a Mon Sep 17 00:00:00 2001
+From: Kim Nylund <kim.nylund@pratsam.org>
+Date: Mon, 28 Oct 2013 12:17:18 +0200
+Subject: [PATCH] read input from event1
+
+---
+ samples/client/Input.cpp |   28 ++++++++++++++++++++++------
+ samples/client/Input.h   |    1 +
+ 2 files changed, 23 insertions(+), 6 deletions(-)
+
+Index: git/samples/client/Input.cpp
+===================================================================
+--- git.orig/samples/client/Input.cpp
++++ git/samples/client/Input.cpp
+@@ -26,7 +26,7 @@
+ #include <cstdio>
+ #include <fcntl.h>
+ #include <linux/kd.h>
+-//#include <linux/keyboard.h>
++#include <linux/input.h>
+ #include <sys/ioctl.h>
+ #include <unistd.h>
+ #include <termios.h>
+@@ -75,13 +75,13 @@ Input::Input()
+     pthread_mutex_init(&inputMutex, NULL);
+ 
+     //////////////////////////////////
+-    // Setup keyboard file descriptor
++    // Setup STDIN file descriptor
+     LOG4CXX_DEBUG(sampleClientInputLog, "Initializing input 'KEYBOARD'");
+ 
+     struct termios newsettings;
+ 
+-    keyboardfd = STDIN_FILENO;
+-    int flags;
++    keyboardfd = -1;//STDIN_FILENO;
++    /*int flags;
+ 
+     // save old attributes
+     tcgetattr(keyboardfd, &kb_startup_settings);
+@@ -106,6 +106,23 @@ Input::Input()
+     else if (fcntl(keyboardfd, F_SETFL, flags | O_RDONLY | O_NONBLOCK) == -1)
+     {
+         LOG4CXX_ERROR(sampleClientInputLog, "error setting flags: " << strerror(errno));
++    }*/
++
++
++    //////////////////////////////////
++    // Setup input file descriptor, assuming kbd is event0
++    LOG4CXX_DEBUG(sampleClientInputLog, "Initializing input input");
++
++    inputfd = open("/dev/input/event0", O_RDONLY | O_NONBLOCK, NULL);
++
++    if(inputfd != -1){
++        // Check id
++        char unique[256];
++        if(ioctl(inputfd, EVIOCGUNIQ(sizeof(unique)), unique) < 0) {
++            LOG4CXX_WARN(sampleClientInputLog, "failed to get event ioctl");
++        }
++
++        LOG4CXX_INFO(sampleClientInputLog, "Keyboard identity is: " << unique);
+     }
+ 
+     //////////////////////////////////
+@@ -198,10 +215,13 @@ Input::~Input()
+     tcsetattr(keyboardfd, TCSANOW, &kb_startup_settings);
+     //ioctl (keyboardfd, KDSKBMODE, kb_startup_mode);
+ 
+-    //close(keyboardfd);
++    //close mousefd;
+     if (mousefd != 0)
+         close(mousefd);
+ 
++    //close inputfd
++    if (inputfd != -1)
++        close(inputfd);
+ }
+ 
+ //--------------------------------------------------
+@@ -217,11 +237,13 @@ void *input_thread(void *input)
+ 
+     SleepTimerOption sleepTimerOption = SLEEP_OFF;
+     ClientCore::COMMAND key_pressed = (ClientCore::COMMAND) -1;
+-    char char_pressed = NULL;
++    char char_pressed = 0;
++
+ 
+     int bytes_read;
+     int bytes_to_read = 0;
+     unsigned char buffer[128];
++    struct input_event ev[64];
+     bool isRunning = true;
+     int speed_dial_curr_value = -1;
+     int speed_dial_read_retries = 0;
+@@ -247,6 +269,13 @@ void *input_thread(void *input)
+                 largest_fd = i->keyboardfd;
+         }
+ 
++        if (i->inputfd != -1)
++        {
++            FD_SET(i->inputfd, &readfds);
++            if (largest_fd < i->inputfd)
++                largest_fd = i->inputfd;
++        }
++
+         if (i->mousefd != -1)
+         {
+             FD_SET(i->mousefd, &readfds);
+@@ -261,20 +290,95 @@ void *input_thread(void *input)
+         // Check for a key on the fd's we have chosen
+         select(largest_fd + 1, &readfds, NULL, NULL, &tv);
+ 
++        // Check input from input device
++        if (i->inputfd != -1 && FD_ISSET(i->inputfd, &readfds)){
++
++            // We have data waiting
++            memset(&buffer, 0, 128);
++            bytes_read = read(i->inputfd, &ev, sizeof(ev));
++            bytes_read = i->fill_buffer(buffer, ev, bytes_read);
++
++
++            for(int c = 0; c < bytes_read; c++){
++                int buffnum = buffer[c];
++                LOG4CXX_TRACE(sampleClientInputLog, "buffer["<< c << "] = " << buffnum << " ('" << buffer[c] << "')");
++
++                switch (buffer[c])
++                {
++                    case KEY_Q:
++                        key_pressed = ClientCore::EXIT;
++                        break;
++                    case KEY_BACKSPACE:
++                    case KEY_KP7:
++                    case KEY_HOME:
++                        key_pressed = ClientCore::BACK;
++                        break;
++                    case KEY_SPACE:
++                    case KEY_KP5:
++                        key_pressed = ClientCore::PAUSE;
++                        break;
++                    case KEY_B:
++                    case KEY_END:
++                    case KEY_KP1:
++                        key_pressed = ClientCore::BOOKMARK;
++                        break;
++                    case KEY_F4:
++                    case KEY_INSERT:
++                    case KEY_KP3:
++                        key_pressed = ClientCore::CONTEXTMENU;
++                        break;
++                    case KEY_ESC:
++                    case KEY_KP9:
++                    case KEY_PAGEUP:
++                        key_pressed = ClientCore::HOME;
++                        break;
++                    case KEY_S:
++                        // cycle between sleep timer options when key 's' is pressed
++                        sleepTimerOption = (SleepTimerOption)((sleepTimerOption + 1) % SLEEP_OPTION_COUNT);
++                        key_pressed = (ClientCore::COMMAND)(ClientCore::SLEEP_OFF + sleepTimerOption);
++                        break;
++                    case KEY_UP:
++                    case KEY_KP8:
++                        key_pressed = ClientCore::UP;
++                        break;
++                    case KEY_DOWN:
++                    case KEY_KP2:
++                        key_pressed = ClientCore::DOWN;
++                        break;
++                    case KEY_RIGHT:
++                    case KEY_KP6:
++                        key_pressed = ClientCore::RIGHT;
++                        break;
++                    case KEY_LEFT:
++                    case KEY_KP4:
++                        key_pressed = ClientCore::LEFT;
++                        break;
++                    case KEY_KPPLUS:
++                    case KEY_EQUAL:
++                        key_pressed = ClientCore::SPEEDUP;
++                        break;
++                    case KEY_MINUS:
++                    case KEY_KPMINUS:
++                        key_pressed = ClientCore::SPEEDDOWN;
++                        break;
++                    default:
++                        LOG4CXX_INFO(sampleClientInputLog, "Unhandled keypress on input buffer[" << c << "]  = " << buffnum << " ('" << buffer[c] << "')");
++                        //char_pressed = buffer[0];
++                        break;
++                }
++            }
++        }
+         // Check the input from the keyboard
+         if (i->keyboardfd != -1 && FD_ISSET(i->keyboardfd, &readfds))
+         {
+-            // We have data waiting
+-            memset(&buffer, 0, 128);
+             bytes_read = read(i->keyboardfd, &buffer, sizeof(buffer));
+ 
+             if (bytes_read)
+             {
+                 // Check what bytes we read and process them
+-                /*cout << "Buf: ";
+-                 for(int c = 0; c < bytes_read; c++)
+-                 cout << "'" << (int) buffer[c] << "' ";
+-                 cout , INPUT_PREFIX);*/
++                for(int c = 0; c < bytes_read; c++)
++                    LOG4CXX_TRACE(sampleClientInputLog, "buffer["<< c << "] = " << "'" << buffer[c] << "' ");
++
+                 //buffer[bytes_read] = '\0';
+                 switch (buffer[0])
+                 {
+@@ -512,9 +616,9 @@ void *input_thread(void *input)
+             key_pressed = (ClientCore::COMMAND) -1;
+         }
+ 
+-        if (char_pressed != NULL){
++        if (char_pressed != 0){
+             i->charPressed_signal(char_pressed);
+-            char_pressed = NULL;
++            char_pressed = 0;
+         }
+ 
+         pthread_mutex_lock(&i->inputMutex);
+@@ -599,6 +703,17 @@ int Input::write_to_mouse(int mousefd, u
+     return (error);
+ }
+ 
++int Input::fill_buffer(unsigned char buffer[], struct input_event ev[], int count)
++{
++    int keys = 0;
++    for(int it=0; it < count / sizeof(struct input_event); it ++){
++        if(ev[it].type == 1 && ev[it].value == 1){
++            buffer[keys] = ev[it].code;
++            keys++;
++        }
++    }
++    return keys;
++}
+ /*
+  char *to_bin(unsigned char c) {
+  static char str[9];
+Index: git/samples/client/Input.h
+===================================================================
+--- git.orig/samples/client/Input.h
++++ git/samples/client/Input.h
+@@ -52,9 +52,11 @@ private:
+     int kb_startup_mode;
+     struct termios kb_startup_settings;
+     int keyboardfd;
++    int inputfd;
+ 
+     int read_mouse_id(int mousefd);
+     int write_to_mouse(int mousefd, unsigned char *data, size_t len);
++    int fill_buffer(unsigned char buffer[], struct input_event ev[], int count);
+     int mousefd;
+     int mousetype;
+     unsigned char mbuttons;

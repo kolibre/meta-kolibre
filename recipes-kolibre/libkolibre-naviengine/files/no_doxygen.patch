@@ -1,0 +1,27 @@
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -69,11 +69,6 @@ dnl ------------------------------------
+ dnl Doxygen settings
+ dnl -----------------------------------------------
+ 
+-DX_DOXYGEN_FEATURE(ON)
+-DX_HTML_FEATURE(ON)
+-DX_PDF_FEATURE(ON)
+-DX_INIT_DOXYGEN([kolibre-naviengine], doxygen.cfg, [doxygen-doc])
+-
+ # Checks for libraries.
+ 
+ # Checks for header files.
+Index: git/Makefile.am
+===================================================================
+--- git.orig/Makefile.am
++++ git/Makefile.am
+@@ -23,6 +23,4 @@ SUBDIRS = src tests
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libkolibre-naviengine.pc
+ 
+-include doxygen.am
+-
+ AM_DISTCHECK_CONFIGURE_FLAGS = "PKG_CONFIG_PATH=${PKG_CONFIG_PATH}"

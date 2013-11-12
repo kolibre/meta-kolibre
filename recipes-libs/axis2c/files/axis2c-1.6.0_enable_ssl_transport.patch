@@ -1,0 +1,30 @@
+diff --git a/samples/server/axis2.xml b/samples/server/axis2.xml
+index 4a69844..88a89c4 100644
+--- a/samples/server/axis2.xml
++++ b/samples/server/axis2.xml
+@@ -41,10 +41,10 @@
+         <parameter name="exposeHeaders" locked="true">false</parameter>
+     </transportReceiver>
+   
+-    <!--transportReceiver name="https" class="axis2_http_receiver">
++    <transportReceiver name="https" class="axis2_http_receiver">
+         <parameter name="port" locked="false">6060</parameter>
+         <parameter name="exposeHeaders" locked="true">false</parameter>
+-    </transportReceiver-->
++    </transportReceiver>
+   
+     <!--transportReceiver name="tcp" class="axis2_tcp_receiver">
+         <parameter name="port" locked="false">6060</parameter>
+@@ -65,10 +65,11 @@
+ 
+     <!-- Uncomment the following with appropriate parameters to enable the SSL transport sender.
+          Also make sure that the appropriate transport receiver is enabled above.-->
+-    <!--transportSender name="https" class="axis2_http_sender">
++    <transportSender name="https" class="axis2_http_sender">
+         <parameter name="PROTOCOL" locked="false">HTTP/1.1</parameter>
+         <parameter name="xml-declaration" insert="false"/>
+     </transportSender>
++    <!--
+     <parameter name="SERVER_CERT">/path/to/ca/certificate</parameter>
+     <parameter name="KEY_FILE">/path/to/client/certificate/chain/file</parameter>
+     <parameter name="SSL_PASSPHRASE">passphrase</parameter>

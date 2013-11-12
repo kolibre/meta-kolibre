@@ -1,0 +1,10 @@
+Index: git/libkolibre-xmlreader.pc.in
+===================================================================
+--- git.orig/libkolibre-xmlreader.pc.in
++++ git/libkolibre-xmlreader.pc.in
+@@ -7,4 +7,4 @@ Name: @PACKAGE_NAME@
+ Description: Kolibre xmlreader library functions
+ Version: @PACKAGE_VERSION@
+ Libs: -L${libdir} -lkolibre-xmlreader
+-Cflags: -I${includedir}/libkolibre/xmlreader-@PACKAGE_VERSION@ @LIBXML2_CFLAGS@
++Cflags: -I${includedir}/libkolibre/xmlreader-@PACKAGE_VERSION@ -I/usr/include/libxml2

@@ -1,0 +1,14 @@
+Index: c/Makefile.am
+===================================================================
+--- c.orig/Makefile.am
++++ c/Makefile.am
+@@ -10,8 +10,7 @@ pkgconfig_DATA = axis2c.pc
+ 
+ SUBDIRS = util $(GUTHTHILA_DIR) axiom neethi src $(TESTDIR) include ides tools/tcpmon tools/md5
+ library_include_HEADERS=$(top_builddir)/include/*.h
+-data_DATA= samples/server/axis2.xml README \
+-	INSTALL CREDITS COPYING NEWS NOTICE AUTHORS
++data_DATA= samples/server/axis2.xml
+ logs_DATA=
+ docs_DATA= 
+ wsdl2c_DATA=tools/codegen/javatool/WSDL2C.sh tools/codegen/javatool/README

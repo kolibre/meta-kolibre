@@ -1,0 +1,29 @@
+diff --git a/src/Narrator.cpp b/src/Narrator.cpp
+index b126483..5903f28 100644
+--- a/src/Narrator.cpp
++++ b/src/Narrator.cpp
+@@ -35,6 +35,7 @@ along with kolibre-narrator. If not, see <http://www.gnu.org/licenses/>.
+ #include <algorithm>
+ #include <cstdlib>
+ #include <sstream>
++#include <fstream>
+ 
+ using namespace std;
+ 
+@@ -716,7 +717,15 @@ void Narrator::playShortpause()
+  */
+ void Narrator::playWait()
+ {
+-    play(_N("wait"));
++    std::string waitOggFile = "/usr/share/libkolibre-narrator/wait.ogg";
++    std::ifstream f(waitOggFile.c_str());
++    bool fileExists = f.good();
++    f.close();
++
++    if (fileExists)
++        playFile(waitOggFile);
++    else
++        play(_N("wait"));
+ }
+ 
+ /**

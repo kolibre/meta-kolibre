@@ -1,0 +1,12 @@
+Index: axis2c-1.6.0-r0/axis2c-src-1.6.0/Makefile.am
+===================================================================
+--- axis2c-1.6.0-r0.orig/axis2c-src-1.6.0/Makefile.am	2009-04-06 07:49:04.000000000 +0300
++++ axis2c-1.6.0-r0/axis2c-src-1.6.0/Makefile.am	2011-11-21 17:53:47.000000000 +0200
+@@ -45,6 +45,4 @@
+ 	rm -rf axis2c-bin-${PACKAGE_VERSION}-linux
+ 
+ install-data-hook:
+-	cp -r docs $(docsdir)
+-	rm -rf `find $(docsdir)/ -type d -name .svn`
+-	rm $(docsdir)/README
++

@@ -1,0 +1,78 @@
+Index: kolibre/build/axis2c-src-1.6.0/axiom/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/axiom/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/axiom/configure.ac
+@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(axis2_axiom-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AM_INIT_AUTOMAKE
+ AC_PREFIX_DEFAULT(/usr/local/axis2_axiom)
+ 
+Index: kolibre/build/axis2c-src-1.6.0/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/configure.ac
+@@ -3,7 +3,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(axis2c-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AM_INIT_AUTOMAKE([tar-ustar])
+ AC_PREFIX_DEFAULT(/usr/local/axis2c)
+ 
+Index: kolibre/build/axis2c-src-1.6.0/guththila/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/guththila/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/guththila/configure.ac
+@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(guththilac-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ dnl AM_INIT_AUTOMAKE([tar-ustar])
+ AM_INIT_AUTOMAKE
+ AC_PREFIX_DEFAULT(/usr/local/guththila)
+Index: kolibre/build/axis2c-src-1.6.0/neethi/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/neethi/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/neethi/configure.ac
+@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(neethi-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ dnl AM_INIT_AUTOMAKE([tar-ustar])
+ AM_INIT_AUTOMAKE
+ m4_ifdef([_A][M_PROG_TAR],[_A][M_SET_OPTION([tar-ustar])])
+Index: kolibre/build/axis2c-src-1.6.0/samples/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/samples/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/samples/configure.ac
+@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(axis2c-sample-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ dnl AM_INIT_AUTOMAKE([tar-ustar])
+ AM_INIT_AUTOMAKE
+ m4_ifdef([_A][M_PROG_TAR],[_A][M_SET_OPTION([tar-ustar])])
+Index: kolibre/build/axis2c-src-1.6.0/util/configure.ac
+===================================================================
+--- kolibre.orig/build/axis2c-src-1.6.0/util/configure.ac
++++ kolibre/build/axis2c-src-1.6.0/util/configure.ac
+@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
+ 
+ AC_INIT(axis2_util-src, 1.6.0)
+ AC_CANONICAL_SYSTEM
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AM_INIT_AUTOMAKE
+ AC_PREFIX_DEFAULT(/usr/local/axis2_util)
+ 

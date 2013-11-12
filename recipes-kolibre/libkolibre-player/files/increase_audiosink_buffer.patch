@@ -1,0 +1,12 @@
+diff --git a/src/PlayerImpl.cpp b/src/PlayerImpl.cpp
+index 2e410d9..af1217a 100644
+--- a/src/PlayerImpl.cpp
++++ b/src/PlayerImpl.cpp
+@@ -1643,6 +1643,7 @@ GstElement *PlayerImpl::setupPostprocessing(GstBin *bin)
+     //g_object_set (pAudiosink, "max-lateness", (gint64)10 * GST_MSECOND, NULL); // no effect?
+ #else
+     pAudiosink = gst_element_factory_make("alsasink", "pAudiosink");
++    g_object_set (pAudiosink, "buffer-time", (gint64)100000, NULL);
+ #endif
+     // Check that the elements got set up
+     if (!pAudioconvert1 ||
