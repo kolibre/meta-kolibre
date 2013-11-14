@@ -6,10 +6,10 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "774c4afd642a5012680af87eaed42bffbc5801b7"
+SRCREV = "4d25379f9f927a5bbb83a136c15c80875227c4a5"
 PV = "0.0.1+git${SRCREV}"
 
-SRC_URI = "git://github.com/kolibre/libkolibre-narrator.git;protocol=git;branch=narrator-english-translation;bareclone=yes"
+SRC_URI = "git://github.com/kolibre/libkolibre-narrator.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 #SRC_URI += "file://soundtouch_integer_samples.patch;apply=yes;striplevel=1"
 SRC_URI += "file://play_wait_from_file.patch;apply=yes;striplevel=1"
