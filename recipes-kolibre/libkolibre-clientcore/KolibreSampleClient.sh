@@ -6,7 +6,12 @@ FILE="/usr/bin/${TAG}"
 echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
 
 HOME=/home/user
+
 SETTINGS_PATH=/usr/share/kolibre-sample-client/settings.ini
+
+if [ -f /media/mmc1/settings.ini ]; then
+    SETTINGS_PATH=/media/mmc1/settings.ini
+fi
 LOG_CONF=/usr/share/kolibre-sample-client/log4cxx.conf
 
 export BOOKMARK_DIR=${HOME}/.KolibreSampleClient/bookmarks

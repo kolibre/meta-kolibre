@@ -18,6 +18,7 @@ SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://make_fixes.patch;apply=yes;striplevel=1"
 SRC_URI += "file://dont_send_book_position_info.patch;apply=yes;striplevel=1"
 SRC_URI += "file://kolibre.service"
+SRC_URI += "file://media-mmc1.mount"
 
 DEPENDS = "autoconf-archive log4cxx libkolibre-narrator libkolibre-player libkolibre-xmlreader libkolibre-amis libkolibre-daisyonline libkolibre-naviengine"
 RDEPENDS_${CLIENT} += "kolibre-sample-client-data"
@@ -55,6 +56,7 @@ do_install_append() {
     # Install systemd service file
     install -d ${D}${systemd_unitdir}/system
     install -m 0644 ${WORKDIR}/kolibre.service ${D}${systemd_unitdir}/system
+    install -m 0644 ${WORKDIR}/media-mmc1.mount ${D}${systemd_unitdir}/system
 }
 
 FILES_${CLIENT} += "\
@@ -69,3 +71,4 @@ PACKAGES =+ "${CLIENT}-systemd"
 SYSTEMD_PACKAGES = "${CLIENT}-systemd"
 SYSTEMD_SERVICE_${CLIENT}-systemd = "kolibre.service"
 FILES_${CLIENT}-systemd += "${systemd_unitdir}/system/kolibre.service"
+FILES_${CLIENT}-systemd += "${systemd_unitdir}/system/media-mmc1.mount"

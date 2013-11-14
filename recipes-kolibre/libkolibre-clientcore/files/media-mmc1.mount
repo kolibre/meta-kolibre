@@ -1,0 +1,7 @@
+[Unit]
+Description=Mount mmc fat16 partition from mmc
+
+[Mount]
+What=/dev/mmcblk0p1
+Where=/media/mmc1
+Options=rw,errors=remount-ro
