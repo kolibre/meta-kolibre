@@ -1,0 +1,15 @@
+[Unit]
+Description=A simple daemon for binding keyboard buttons to system commands
+After=systemd-user-sessions.service
+Wants=systemd-user-sessions.service
+
+[Service]
+Restart=always
+TimeoutStopSec=30
+StandardOutput=null
+ExecStart=/usr/bin/system-buttond.py
+
+[Install]
+WantedBy=multi-user.target
+Alias=system-buttond.service
+
