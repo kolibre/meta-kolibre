@@ -5,7 +5,11 @@ IMAGE_FEATUES += "tools-testapps debug-tweaks tools-profile"
 DISTRO_FEATURES += "pulseaudio keyboard"
 
 # Include modules in rootfs
-IMAGE_INSTALL += "alsa-utils kolibre-sample-client autoload-bcm2835 kolibre-sample-client-systemd"
+IMAGE_INSTALL += "alsa-utils kolibre-sample-client \
+    autoload-bcm2835 \
+    kolibre-sample-client-systemd \
+    python-system-buttond \
+"
 
 export IMAGE_BASENAME = "kolibre-set-top-image"
 

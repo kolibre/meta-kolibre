@@ -1,13 +1,14 @@
 [Unit]
 Description=A simple daemon for binding keyboard buttons to system commands
 After=systemd-user-sessions.service
-Wants=systemd-user-sessions.service
+Wants=systemd-user-sessions.service media-mmc1.mount
 
 [Service]
 Restart=always
+RestartSec=5s
 TimeoutStopSec=30
 StandardOutput=null
-ExecStart=/usr/bin/system-buttond.py
+ExecStart=/usr/bin/system-buttond.py /media/mmc1/settings.ini
 
 [Install]
 WantedBy=multi-user.target

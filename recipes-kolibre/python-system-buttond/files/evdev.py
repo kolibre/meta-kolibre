@@ -23,21 +23,83 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
 
-import struct, sys, os, time
-from fcntl import ioctl
+import struct, sys, os, time, syslog, re 
+import ConfigParser as configparser
+from select import select
 
 __all__ = ["Event", "Device"]
 
-def demo():
+def runDaemon():
     """Open the event device named on the command line, use incoming
        events to update a device, and show the state of this device.
-       """
-    dev = Device(sys.argv[1])
+    """
+    step = 2
+    kolibreStarted = True
+    indev = getInput()
+    if indev is None:
+        syslog.syslog("No input device found")
+        return
+    dev = Device(indev)
+    syslog.syslog("Button-daemon started")
     while 1:
         dev.poll()
-        time.sleep(0.1)
-        print dev
+        # start/stop button
+        if( dev.buttons.get("KEY_TAB",0) == 1 ):
+            kolibreStatus = os.popen("systemctl status kolibre.service").read()
+            if re.search(" +Active: inactive", kolibreStatus):
+                syslog.syslog("Start Kolibre Client")
+                os.system("systemctl start kolibre.service")
+            elif re.search(" +Active: active", kolibreStatus):
+                syslog.syslog("Stop Kolibre")
+                os.system("systemctl stop kolibre.service")
+            else:
+                syslog.syslog("Could not parse status of kolibre-sample-client:\n" + kolibreStatus)
+        # Volume up
+        if( dev.buttons.get("KEY_KPSLASH") == 1 ):
+            syslog.syslog("Increase volume")
+            os.system("amixer -q set PCM "+ str(step) +"dB+")
+        # Volume down
+        if( dev.buttons.get("KEY_KPASTERISK",0) == 1 ):
+            syslog.syslog("Decrease volume")
+            os.system("amixer -q set PCM "+ str(step) +"dB-")
 
+    syslog.syslog("Button-daemon stopped")
+
+def getInput():
+    deviceProperty = getDeviceProperty()
+
+    if deviceProperty is None:
+        syslog.syslog("Device property was empty. Aborting")
+        return None
+
+    devices = [dev for dev in os.listdir("/dev/input") if "event" in dev]
+    for dev in devices:
+        out = os.popen("udevadm info /sys/class/input/" + dev).read()
+        if re.search(deviceProperty, out):
+            return "/dev/input/" + dev
+
+    return None
+
+def getDeviceProperty():
+    # Read config from settings file, default /usr/share/kolibre-sample-client
+    config = configparser.RawConfigParser()
+
+    # Select config file
+    configFile = "/usr/share/kolibre-sample-client/settings.ini"
+    if len(sys.argv)>=2 and os.path.exists(sys.argv[1]):
+        configFile = sys.argv[1]
+
+    # Open config file
+    if config.read(configFile):
+        syslog.syslog("Config read from: " + configFile)
+    else:
+        syslog.syslog("Reading from config failed: " + configFile)
+        return None
+
+    # Search for the device properties in the settings file
+    deviceProperty = config.get("InputSettings", "INPUT_DEVICE")
+
+    return deviceProperty
 
 class BaseDevice:
     """Base class representing the state of an input device, with axes and buttons.
@@ -94,7 +156,8 @@ class Device(BaseDevice):
 
     def poll(self):
         """Receive and process all available input events"""
-        while 1:
+        r,w,x = select([self.fd], [], [], 10)
+	while True:
             try:
                 buffer = os.read(self.fd, self.packetSize)
             except OSError:
@@ -102,7 +165,7 @@ class Device(BaseDevice):
             self.update(Event(unpack=buffer))
 
     def readMetadata(self):
-        """Read device identity and capabilities via ioctl()"""
+        """Read device identity and capabilities via ioctl()
         buffer = "\0"*512
 
         # Read the name
@@ -116,7 +179,7 @@ class Device(BaseDevice):
         for name, number in absmap.nameMap.iteritems():
             values = struct.unpack("iiiii", ioctl(self.fd, EVIOCGABS_512 + number, buffer))
             values = dict(zip(( 'value', 'min', 'max', 'fuzz', 'flat' ),values))
-            self.absAxisInfo[name] = values
+            self.absAxisInfo[name] = values"""
 
     def update_EV_ABS(self, event):
         """Scale the absolute axis into the range [-1, 1] using absAxisInfo"""
@@ -546,6 +609,6 @@ class Event:
 
 
 if __name__ == "__main__":
-    demo()
+    runDaemon()
 
 ### The End ###
