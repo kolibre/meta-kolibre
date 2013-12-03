@@ -1,0 +1,52 @@
+From 7c0009c54987faa36aa4672f98f5b4abc9b8d56b Mon Sep 17 00:00:00 2001
+From: Kim Nylund <kim@pratsam.com>
+Date: Wed, 27 Nov 2013 02:05:00 -0700
+Subject: [PATCH] Experiment with different seek flags
+
+---
+ src/PlayerImpl.cpp | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/PlayerImpl.cpp b/src/PlayerImpl.cpp
+index b6603bb..1e0b091 100644
+--- a/src/PlayerImpl.cpp
++++ b/src/PlayerImpl.cpp
+@@ -642,7 +642,7 @@ void PlayerImpl::seekPos(long long int seektime)
+ 
+                 LOG4CXX_INFO(playerImplLog, "Seeking to " << seektime << " ms (" << c_seektime << ")");
+ 
+-                if (!gst_element_seek_simple (pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT), c_seektime))
++                if (!gst_element_seek_simple (pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_SKIP), c_seektime))
+                 {
+                     LOG4CXX_ERROR(playerImplLog, "Seek to " << seektime << " in '" << filename << "' failed");
+                     return;
+@@ -2787,7 +2787,7 @@ void *player_thread(void *player)
+ 
+                                     p->unlockMutex(p->dataMutex);
+ 
+-                                    if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT), c_seektime))
++                                    if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_SKIP), c_seektime))
+                                     {
+                                         LOG4CXX_ERROR(playerImplLog, "Seek failed");
+                                     }
+@@ -2826,7 +2826,7 @@ void *player_thread(void *player)
+ 
+                                     p->unlockMutex(p->dataMutex);
+ 
+-                                    if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT), c_seektime))
++                                    if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_SKIP), c_seektime))
+                                     {
+                                         LOG4CXX_ERROR(playerImplLog, "Seek failed");
+                                     }
+@@ -3248,7 +3248,7 @@ bool handle_bus_message(GstMessage *message, PlayerImpl *p){
+                             p->bFadeIn = true;
+                             p->unlockMutex(p->dataMutex);
+ 
+-                            if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT), c_seektime))
++                            if (!gst_element_seek_simple (p->pPipeline, GST_FORMAT_TIME, (GstSeekFlags)(GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_SKIP), c_seektime))
+                             {
+                                 LOG4CXX_ERROR(playerImplLog, "Seek failed");
+                             }
+-- 
+1.8.4.2
+

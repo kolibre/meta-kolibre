@@ -6,15 +6,17 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "7df1fd33b4d1c47e7e6dc4ae3d20bba40207fd39"
+SRCREV = "5d61ce8831db3ace58047d05eb8223986e354748"
 PV = "0.0.1+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-player.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
-#SRC_URI += "file://increase_audiosink_buffer.patch"
+SRC_URI += "file://use_seek_skip_flag.patch"
+#SRC_URI += "file://force-setup-of-new-pipeline-on-seek-in-file.patch"
+
 
 DEPENDS = "autoconf-archive boost log4cxx gstreamer gst-fluendo-mp3 gst-plugins-base gst-plugins-good gst-plugins-bad"
-RDEPENDS_${PN} += "glibc-gconv-iso8859-1 gst-plugins-good-souphttpsrc gst-fluendo-mp3-flump3dec gst-plugins-good-audiofx gst-plugins-good-level gst-plugins-base-audioconvert gst-plugins-bad-soundtouch gst-plugins-base-alsa"
+RDEPENDS_${PN} += "glibc-gconv-iso8859-1 gst-plugins-good-souphttpsrc gst-fluendo-mp3-flump3dec gst-plugins-good-audiofx gst-plugins-good-level gst-plugins-base-audioconvert gst-plugins-bad-soundtouch gst-plugins-base-alsa gst-plugins-good-autodetect"
 
 EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.."
 
