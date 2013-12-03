@@ -1,16 +1,12 @@
 DESCRIPTION = "Data package for kolibre sample client"
 HOMEPAGE = "https://github.com/kolibre/libkolibre-clientcore"
-AUTHOR = "Johan Abbors johan.abbors@pratsam.com"
 LICENSE = "LGPLv2.1"
 SECTION = "media"
 
 LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING;md5=4b54a1fd55a448865a0b32d41598759d"
 
-#SRCREV = "91f840eef5c63404cd89c303cf353594b7824d47"
 PV = "0.0.1"
 
-
-#SRC_URI = "git://thoth.pratsam.com/var/git/pratsam-prompts.git;protocol=ssh;branch=kolibre-integration"
 SRC_URI = "file://COPYING"
 
 DEPENDS = "libkolibre-clientcore libkolibre-narrator-utils"
@@ -25,7 +21,6 @@ do_compile() {
     translations_en=${PKG_CONFIG_SYSROOT_DIR}${datadir}/libkolibre-clientcore/prompts/en/translations.csv
     translations_sv=${PKG_CONFIG_SYSROOT_DIR}${datadir}/libkolibre-clientcore/prompts/sv/translations.csv
     translations_fi=${PKG_CONFIG_SYSROOT_DIR}${datadir}/libkolibre-clientcore/prompts/fi/translations.csv
-    #inputdir=${S}/sv/samuel
     output=${S}/messages.db
 
 # build database with narrator-utils
