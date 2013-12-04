@@ -24,6 +24,7 @@ RDEPENDS_${PN} += "\
         gst-plugins-good-audiofx \
         gst-plugins-good-autodetect \
         gst-plugins-good-level \
+        gst-plugins-good-pulse \
         gst-plugins-good-souphttpsrc \
         gst-plugins-bad-soundtouch \
         "

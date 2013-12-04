@@ -9,4 +9,7 @@ IMAGE_INSTALL += " \
     alsa-utils \
     autoload-bcm2835 \
     kolibre-sample-client \
+    consolekit \
+    pulseaudio-server \
+    pulseaudio-misc \
 "
