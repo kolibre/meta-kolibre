@@ -1,7 +1,7 @@
 # Base this image on console-image
 require recipes-images/angstrom/console-image.bb
 
-IMAGE_FEATUES += "tools-testapps tools-debug"
+IMAGE_FEATUES += "tools-testapps tools-debug tools-profile"
 
 # Include modules in rootfs
 IMAGE_INSTALL += "alsa-utils kolibre-sample-client libkolibre-clientcore-dbg gdb"
