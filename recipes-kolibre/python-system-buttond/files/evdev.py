@@ -36,9 +36,13 @@ def runDaemon():
     step = 2
     kolibreStarted = True
     indev = getInput()
-    if indev is None:
-        syslog.syslog("No input device found")
-        return
+    while indev is None:
+        time.sleep(5)
+        syslog.syslog("Looking for input device")
+        indev = getInput()
+
+    syslog.syslog("Found keyboard");
+
     dev = Device(indev)
     syslog.syslog("Button-daemon started")
     while 1:
