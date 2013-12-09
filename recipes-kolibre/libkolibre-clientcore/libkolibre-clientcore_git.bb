@@ -6,7 +6,7 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4b54a1fd55a448865a0b32d41598759d"
 
-SRCREV = "a1c52d195af8cd1e570be56451e287bd322c7df7"
+SRCREV = "b41630bf46da69217b8cd45b71989e72e2924dd2"
 PV = "0.0.1+git${SRCREV}"
 
 PROVIDES += "kolibre-sample-client"
