@@ -16,7 +16,17 @@ SRC_URI += "file://use_seek_skip_flag.patch"
 
 
 DEPENDS = "autoconf-archive boost log4cxx gstreamer gst-fluendo-mp3 gst-plugins-base gst-plugins-good gst-plugins-bad"
-RDEPENDS_${PN} += "glibc-gconv-iso8859-1 gst-plugins-good-souphttpsrc gst-fluendo-mp3-flump3dec gst-plugins-good-audiofx gst-plugins-good-level gst-plugins-base-audioconvert gst-plugins-bad-soundtouch gst-plugins-base-alsa gst-plugins-good-autodetect"
+RDEPENDS_${PN} += "\
+        glibc-gconv-iso8859-1 \
+        gst-fluendo-mp3-flump3dec \
+        gst-plugins-base-alsa \
+        gst-plugins-base-audioconvert \
+        gst-plugins-good-audiofx \
+        gst-plugins-good-autodetect \
+        gst-plugins-good-level \
+        gst-plugins-good-souphttpsrc \
+        gst-plugins-bad-soundtouch \
+        "
 
 EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.."
 
