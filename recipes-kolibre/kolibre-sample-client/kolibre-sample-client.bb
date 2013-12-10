@@ -26,6 +26,8 @@ do_install() {
 
     # Install settings file
     install -m 644 ${S}/settings.ini ${D}${datadir}/${PN}
+    install -d ${DEPLOY_DIR_IMAGE}/bcm2835-bootfiles
+    install -m 644 ${S}/settings.ini ${DEPLOY_DIR_IMAGE}
 
     # Install systemd service file
     install -d ${D}${systemd_unitdir}/system
