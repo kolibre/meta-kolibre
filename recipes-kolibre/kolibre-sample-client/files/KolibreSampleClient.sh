@@ -5,8 +5,6 @@ FILE="/usr/bin/${TAG}"
 
 echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
 
-HOME=/home/user
-
 SETTINGS_PATH=/usr/share/kolibre-sample-client/settings.ini
 
 if [ -f /media/mmc1/settings.ini ]; then
