@@ -1,9 +1,8 @@
-# Base this image on console-image
-require recipes-images/angstrom/console-image.bb
+#require kolibre-common.inc
+require recipes-kolibre/images/kolibre-common.inc
 
-IMAGE_FEATUES += "tools-testapps tools-debug tools-profile"
+IMAGE_FEATUES += "tools-debug tools-profile"
 
-# Include modules in rootfs
-IMAGE_INSTALL += "alsa-utils kolibre-sample-client libkolibre-clientcore-dbg gdb"
+IMAGE_INSTALL += "libkolibre-clientcore-dbg gdb"
 
 export IMAGE_BASENAME = "kolibre-debug-image"
