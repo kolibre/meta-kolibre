@@ -19,6 +19,8 @@ PASSWORD=$(grep -e "^PASSWORD" ${SETTINGS_PATH} | cut -d "=" -f2)
 LANGUAGE=$(grep -e "^LANGUAGE" ${SETTINGS_PATH} | cut -d "=" -f2)
 LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
 INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
+TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
+if [ "$TMPFS" = "/tmp" ]; then HOME=$TMPFS; fi
 test -z "$SERVICE_URL" && abort "SERVICE_URL"
 test -z "$USERNAME" && abort "USERNAME"
 test -z "$PASSWORD" && abort "PASSWORD"
