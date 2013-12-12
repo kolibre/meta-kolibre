@@ -3,7 +3,7 @@
 TAG="KolibreSampleClient.sh"
 FILE="/usr/bin/${TAG}"
 
-echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
+#echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
 
 SETTINGS_PATH=/usr/share/kolibre-sample-client/settings.ini
 
