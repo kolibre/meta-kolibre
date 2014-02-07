@@ -124,18 +124,19 @@ Index: git/src/PortAudio.cpp
  
  // create logger which will become a child to logger kolibre.narrator
  log4cxx::LoggerPtr narratorPaLog(log4cxx::Logger::getLogger("kolibre.narrator.portaudio"));
-@@ -95,7 +95,7 @@ bool PortAudio::open(long rate, int chan
+@@ -95,15 +95,14 @@ bool PortAudio::open(long rate, int chan
  
          LOG4CXX_DEBUG(narratorPaLog, "Opening device: " << devinfo->name << " (" << hostapiinfo->name << "), channels: " << channels << ", rate: " << rate <<" (" << devinfo->defaultSampleRate << ")");
  
 -        unsigned long framesPerBuffer = 1024;
-+        unsigned long framesPerBuffer = 512;
++        unsigned long framesPerBuffer = 440;
  
  #ifdef WIN32
          framesPerBuffer = 4096;
-@@ -103,7 +103,6 @@ bool PortAudio::open(long rate, int chan
+ #endif
  
-         mError = Pa_OpenStream(&pStream, NULL, &mOutputParameters, rate, framesPerBuffer,
+-        mError = Pa_OpenStream(&pStream, NULL, &mOutputParameters, rate, framesPerBuffer,
++        mError = Pa_OpenStream(&pStream, NULL, &mOutputParameters, rate, framesPerBuffer,
                  paNoFlag, pa_stream_callback, this);
 -
          if(mError != paNoError) {

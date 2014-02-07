@@ -1,12 +1,8 @@
-# Base this image on console-image
-require recipes-images/angstrom/console-image.bb
+#require kolibre-common.inc
+require recipes-kolibre/images/kolibre-common.inc
 
-IMAGE_FEATUES += "tools-testapps debug-tweaks tools-profile"
-DISTRO_FEATURES += "pulseaudio keyboard"
+IMAGE_FEATUES += "tools-testapps"
 
-# Include modules in rootfs
-IMAGE_INSTALL += "alsa-utils kolibre-sample-client autoload-bcm2835 kolibre-sample-client-systemd"
+IMAGE_INSTALL += "kolibre-sample-client-systemd python-system-buttond"
 
 export IMAGE_BASENAME = "kolibre-set-top-image"
-
-#IMAGE_ROOTFS_EXTRA_SPACE = "524000"

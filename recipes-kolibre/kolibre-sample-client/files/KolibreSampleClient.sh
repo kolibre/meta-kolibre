@@ -3,11 +3,28 @@
 TAG="KolibreSampleClient.sh"
 FILE="/usr/bin/${TAG}"
 
-echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
+#echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
 
-HOME=/home/user
 SETTINGS_PATH=/usr/share/kolibre-sample-client/settings.ini
+
+if [ -f /media/mmc1/settings.ini ]; then
+    SETTINGS_PATH=/media/mmc1/settings.ini
+fi
 LOG_CONF=/usr/share/kolibre-sample-client/log4cxx.conf
+
+# Read settings from settingsfile
+SERVICE_URL=$(grep -e "^SERVICE_URL" ${SETTINGS_PATH} | cut -d "=" -f2)
+USERNAME=$(grep -e "^USERNAME" ${SETTINGS_PATH} | cut -d "=" -f2)
+PASSWORD=$(grep -e "^PASSWORD" ${SETTINGS_PATH} | cut -d "=" -f2)
+LANGUAGE=$(grep -e "^LANGUAGE" ${SETTINGS_PATH} | cut -d "=" -f2)
+LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
+INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
+TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
+if [ "$TMPFS" = "/tmp" ]; then HOME=$TMPFS; fi
+test -z "$SERVICE_URL" && abort "SERVICE_URL"
+test -z "$USERNAME" && abort "USERNAME"
+test -z "$PASSWORD" && abort "PASSWORD"
+test -z "$LANGUAGE" && abort "LANGUAGE"
 
 export BOOKMARK_DIR=${HOME}/.KolibreSampleClient/bookmarks
 export KOLIBRE_DATA_PATH=${HOME}/.KolibreSampleClient
@@ -26,18 +43,6 @@ else
     cp ${PROMPTS_DB} ${KOLIBRE_DATA_PATH}
     logger -t ${TAG} -p syslog.info -s "Messages db copied to ${KOLIBRE_DATA_PATH}"
 fi
-
-# Read settings from settingsfile
-SERVICE_URL=$(grep -e "^SERVICE_URL" ${SETTINGS_PATH} | cut -d "=" -f2)
-USERNAME=$(grep -e "^USERNAME" ${SETTINGS_PATH} | cut -d "=" -f2)
-PASSWORD=$(grep -e "^PASSWORD" ${SETTINGS_PATH} | cut -d "=" -f2)
-LANGUAGE=$(grep -e "^LANGUAGE" ${SETTINGS_PATH} | cut -d "=" -f2)
-LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
-INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
-test -z "$SERVICE_URL" && abort "SERVICE_URL"
-test -z "$USERNAME" && abort "USERNAME"
-test -z "$PASSWORD" && abort "PASSWORD"
-test -z "$LANGUAGE" && abort "LANGUAGE"
 
 # Change log level in log configuration
 if [ -n "${LOG_LEVEL}" ]; then

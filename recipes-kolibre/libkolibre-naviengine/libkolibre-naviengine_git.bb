@@ -6,7 +6,7 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4b54a1fd55a448865a0b32d41598759d"
 
-SRCREV = "5ff353723a7d904693820a71fbc82aedbde627c1"
+SRCREV = "f046177eaae8957bbacafa50652b6ea307d19717"
 PV = "0.0.1+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-naviengine.git;protocol=git;branch=master"
