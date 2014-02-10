@@ -6,13 +6,12 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "b0857309c25f58965ccc370c282f1f6033bac3f0"
+SRCREV = "31165e034a97d69925c512825f718dc3e354eaf2"
 PV = "0.0.1+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-narrator.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://play_wait_from_file.patch;apply=yes;striplevel=1"
-#SRC_URI += "file://fix_laggy_playback.patch"
 
 DEPENDS = "autoconf-archive boost log4cxx libvorbis portaudio-v19 soundtouch sqlite3"
 
