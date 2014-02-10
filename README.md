@@ -34,4 +34,5 @@ Meta-kolibre has been tested with Linux Debian Wheezy as build platform.
 
 Licensing
 ---------------------------------
-Copyright (C) 2013 Kolibre
+The content of this project itself is licensed under the
+[MIT license](http://opensource.org/licenses/mit-license.php).
