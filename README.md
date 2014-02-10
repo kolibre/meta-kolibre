@@ -13,7 +13,7 @@ embership and contact information can be found at http://www.kolibre.org/
 
 What is meta-kolibre?
 ---------------------------------
-meta-kolibre is a bitbake layer for adding the kolibre packages to a imgage compiled
+meta-kolibre is a bitbake layer for adding the kolibre packages to a image compiled
 by bitbake.
 
 This layer provides kolibre player recipes and two image recipes for use with Angstrom
