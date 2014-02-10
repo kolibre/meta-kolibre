@@ -1,16 +1,37 @@
-OpenEmbedded Angstrom/Yocto kolibre layer for kolibre player
-=============================================
+What is Kolibre?
+---------------------------------
+Kolibre is a Finnish non-profit association whose purpose is to promote
+information systems that aid people with reading disabilities. The software
+which Kolibre develops is published under open source and made available to all
+stakeholders at github.com/kolibre.
 
-This layer provides kolibre player recipes for use with Angstrom
-and/or Yocto.
+Kolibre is committed to broad cooperation between organizations, businesses and
+individuals around the innovative development of custom information systems for
+people with different needs. More information about Kolibres activities, association
+embership and contact information can be found at http://www.kolibre.org/
 
-This layer depends on:
 
-URI: git://git.openembedded.org/openembedded-core
-branch: master
-revision: HEAD
+What is meta-kolibre?
+---------------------------------
+meta-kolibre is a bitbake layer for adding the kolibre packages to a imgage compiled
+by bitbake.
 
-URI: git://git.openembedded.org/meta-openembedded
-branch: master
-revision: HEAD
+This layer provides kolibre player recipes and two image recipes for use with Angstrom
+and/or Yocto distributions.
 
+The layer is developed and tested with the angstrom-staging-yocto1.4 branch.
+
+Documentation
+---------------------------------
+For more instructions on how to get started with building please refer to the 
+project wiki: 
+
+https://github.com/kolibre/meta-kolibre/wiki
+
+Platforms
+---------------------------------
+Meta-kolibre has been tested with Linux Debian Wheezy as build platform.
+
+Licensing
+---------------------------------
+Copyright (C) 2013 Kolibre
