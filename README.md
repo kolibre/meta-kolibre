@@ -30,7 +30,7 @@ https://github.com/kolibre/meta-kolibre/wiki
 
 Platforms
 ---------------------------------
-Meta-kolibre has been tested with Linux Debian Wheezy as build platform.
+Meta-kolibre has been tested with Linux Debian Wheezy and Squeeze as build platform.
 
 Licensing
 ---------------------------------
