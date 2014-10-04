@@ -1,0 +1,47 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]
+then
+    # no input parameter given -> exit
+    exit 1
+fi
+
+# find mount point for device
+mountpoint=$(mount | grep $1 | cut -d ' ' -f 3)
+if [ -z "$mountpoint" ]
+then
+    # no match found for input parameter -> exit
+    exit 2
+fi
+
+# example signal to emulate, array of bytes is translated to /media/KINGSTON
+
+# signal sender=:1.45 -> dest=(null destination) serial=75 path=/org/freedesktop/UDisks2/block_devices/sdb1; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+#    string "org.freedesktop.UDisks2.Filesystem"
+#        array [
+#            dict entry(
+#                string "MountPoints"
+#                variant             array [
+#                        array of bytes [
+#                            2f 6d 65 64 69 61 2f 4b 49 4e 47 53 54 4f 4e 00
+#                        ]
+#                    ]
+#            )
+#        ]
+#    array [
+#    ]
+
+# our signal is simplified to
+
+#signal sender=:1.37 -> dest=(null destination) serial=2 path=/org/freedesktop/UDisks2; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+#    string "org.freedesktop.UDisks2.Filesystem"
+#    array [
+#        dict entry(
+#            string "MountPoints"
+#            string "/media/KINGSTON"
+#        )
+#    ]
+
+
+# signal mount point over d-bus
+dbus-send --system /org/freedesktop/UDisks2 org.freedesktop.DBus.Properties.PropertiesChanged string:"org.freedesktop.UDisks2.Filesystem" dict:string:string:"MountPoints","$mountpoint"
