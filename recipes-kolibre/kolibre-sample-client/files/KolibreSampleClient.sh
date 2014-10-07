@@ -17,6 +17,7 @@ SERVICE_URL=$(grep -e "^SERVICE_URL" ${SETTINGS_PATH} | cut -d "=" -f2)
 USERNAME=$(grep -e "^USERNAME" ${SETTINGS_PATH} | cut -d "=" -f2)
 PASSWORD=$(grep -e "^PASSWORD" ${SETTINGS_PATH} | cut -d "=" -f2)
 LANGUAGE=$(grep -e "^LANGUAGE" ${SETTINGS_PATH} | cut -d "=" -f2)
+LOG_SDCARD=$(grep -e"^LOG_SDCARD" ${SETTINGS_PATH} | cut -d "=" -f2)
 LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
 INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
 TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
@@ -42,6 +43,13 @@ if [ -f ${KOLIBRE_DATA_PATH}/messages.db ]; then
 else
     cp ${PROMPTS_DB} ${KOLIBRE_DATA_PATH}
     logger -t ${TAG} -p syslog.info -s "Messages db copied to ${KOLIBRE_DATA_PATH}"
+fi
+
+# Change log output to sdcard
+if [ -n "${LOG_SDCARD}" ] && [ "${LOG_SDCARD}" = "true" ]; then
+    sed -e "s/^log4j.rootLogger=.*$/log4j.rootLogger=DEBUG, S, R/g" -i ${LOG_CONF}
+else
+    sed -e "s/^log4j.rootLogger=.*$/log4j.rootLogger=DEBUG, S/g" -i ${LOG_CONF}
 fi
 
 # Change log level in log configuration
