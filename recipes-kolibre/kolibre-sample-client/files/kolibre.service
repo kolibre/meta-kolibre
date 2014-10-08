@@ -1,7 +1,7 @@
 [Unit]
 Description=Kolibre Sample Client
-After=systemd-user-sessions.service sound.target
-Wants=systemd-user-sessions.service media-mmc1.mount
+After=systemd-user-sessions.service sound.target media-mmc1.mount
+Wants=systemd-user-sessions.service
 
 [Service]
 Restart=always
