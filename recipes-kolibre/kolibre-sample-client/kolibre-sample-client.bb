@@ -4,7 +4,7 @@ SECTION = "console"
 
 LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING;md5=4b54a1fd55a448865a0b32d41598759d"
 
-PV = "0.1"
+PV = "1.0"
 
 SRC_URI = "file://COPYING"
 
