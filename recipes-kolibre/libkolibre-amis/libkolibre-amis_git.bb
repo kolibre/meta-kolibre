@@ -6,8 +6,8 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "e3d331971db7bb3c5376e7ec5ba085aee7492b05"
-PV = "0.0.1+git${SRCREV}"
+SRCREV = "8c20a944e28af347726304062bf165815f7e6c47"
+PV = "1.0.0+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-amis.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
