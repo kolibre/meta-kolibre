@@ -13,19 +13,13 @@ fi
 LOG_CONF=/usr/share/kolibre-sample-client/log4cxx.conf
 
 # Read settings from settingsfile
-SERVICE_URL=$(grep -e "^SERVICE_URL" ${SETTINGS_PATH} | cut -d "=" -f2)
-USERNAME=$(grep -e "^USERNAME" ${SETTINGS_PATH} | cut -d "=" -f2)
-PASSWORD=$(grep -e "^PASSWORD" ${SETTINGS_PATH} | cut -d "=" -f2)
 LANGUAGE=$(grep -e "^LANGUAGE" ${SETTINGS_PATH} | cut -d "=" -f2)
 LOG_SDCARD=$(grep -e"^LOG_SDCARD" ${SETTINGS_PATH} | cut -d "=" -f2)
 LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
 INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
 TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
 if [ "$TMPFS" = "/tmp" ]; then HOME=$TMPFS; fi
-test -z "$SERVICE_URL" && abort "SERVICE_URL"
-test -z "$USERNAME" && abort "USERNAME"
-test -z "$PASSWORD" && abort "PASSWORD"
-test -z "$LANGUAGE" && abort "LANGUAGE"
+if [ -n "$LANGUAGE" ]; then LANGUAGE=en; fi
 
 export BOOKMARK_DIR=${HOME}/.KolibreSampleClient/bookmarks
 export KOLIBRE_DATA_PATH=${HOME}/.KolibreSampleClient
@@ -88,11 +82,11 @@ if [ -n "$INPUT_REG" ]; then
     cd /dev/input
     for dev in $(ls e*) ; do
         if udevadm info /sys/class/input/$dev | grep -i $INPUT_REG; then
-            INPUT_DEV="-i /dev/input/$dev"
+            INPUT_DEV="-d /dev/input/$dev"
             break
         fi
     done
     cd -
 fi
 
-/usr/bin/KolibreSampleClient $SERVICE_URL $USERNAME $PASSWORD $USERAGENT -l $LANGUAGE -c $LOG_CONF $INPUT_DEV -r
+/usr/bin/KolibreSampleClient -i $SETTINGS_PATH -c $LOG_CONF -l $LANGUAGE -a $USERAGENT $INPUT_DEV
