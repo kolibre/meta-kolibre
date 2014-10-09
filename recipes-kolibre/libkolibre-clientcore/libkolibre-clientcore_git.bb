@@ -6,18 +6,18 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4b54a1fd55a448865a0b32d41598759d"
 
-SRCREV = "b41630bf46da69217b8cd45b71989e72e2924dd2"
-PV = "0.0.1+git${SRCREV}"
+SRCREV = "35552932ff442f78c210394dc5ceeb9a760a5224"
+PV = "1.0.0+git${SRCREV}"
 
 PROVIDES =+ "kolibre-sample-client-bin"
 PACKAGES =+ "kolibre-sample-client-bin"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-clientcore.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
-SRC_URI += "file://make_fixes.patch;apply=yes;striplevel=1"
 SRC_URI += "file://dont_send_book_position_info.patch;apply=yes;striplevel=1"
+SRC_URI += "file://simplified-udisks2-message-parsing.patch;apply=yes;striplevel=1"
 
-DEPENDS = "autoconf-archive log4cxx libkolibre-narrator libkolibre-player libkolibre-xmlreader libkolibre-amis libkolibre-daisyonline libkolibre-naviengine"
+DEPENDS = "autoconf-archive boost log4cxx libkolibre-narrator libkolibre-player libkolibre-xmlreader libkolibre-amis libkolibre-daisyonline libkolibre-naviengine glib-2.0 dbus-glib"
 
 EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.. --with-samples"
 
