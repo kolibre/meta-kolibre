@@ -6,8 +6,8 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "266c31a2d9130e707012c4ef94474dbce988d1e5"
-PV = "0.0.1+git${SRCREV}"
+SRCREV = "e8202120ab1557492482b5f6f2786523836088c2"
+PV = "1.0.0+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-daisyonline.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch"
