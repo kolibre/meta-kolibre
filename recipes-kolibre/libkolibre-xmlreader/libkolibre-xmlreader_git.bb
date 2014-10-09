@@ -6,8 +6,8 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "d44abd3e8d60af54a5411f79e6bbdb1d86ed758b"
-PV = "0.0.1+git${SRCREV}"
+SRCREV = "437be601efafbacf1ed175f481725af8b551ca5d"
+PV = "1.0.0+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-xmlreader.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
