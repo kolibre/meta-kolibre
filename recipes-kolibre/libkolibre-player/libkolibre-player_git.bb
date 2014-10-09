@@ -6,8 +6,8 @@ SECTION = "libs"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRCREV = "5d61ce8831db3ace58047d05eb8223986e354748"
-PV = "0.0.1+git${SRCREV}"
+SRCREV = "19540d6d1862c9e8c414e20d3d22ed972c0cbf19"
+PV = "1.0.0+git${SRCREV}"
 
 SRC_URI = "git://github.com/kolibre/libkolibre-player.git;protocol=git;branch=master"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
