@@ -16,8 +16,8 @@ SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://dont_send_book_position_info.patch;apply=yes;striplevel=1"
 SRC_URI += "file://simplified-udisks2-message-parsing.patch;apply=yes;striplevel=1"
 
-SRC_URI[md5sum] = "291e4e1f210240544e5303b2ca35bd78"
-SRC_URI[sha256sum] = "b5d9091e97f3e1e1e267ba2e3b6769fa00ed2eea0d2f5a2814d6a2e1d0c13c0f"
+SRC_URI[md5sum] = "3bbe3b6bb991b9325202d264cf541400"
+SRC_URI[sha256sum] = "bb0f9efd4bbfbc7179183a50c25f52c83758916437448ac432ae738a4dcf1632"
 
 DEPENDS = "autoconf-archive boost log4cxx libkolibre-narrator libkolibre-player libkolibre-xmlreader libkolibre-amis libkolibre-daisyonline libkolibre-naviengine glib-2.0 dbus-glib"
 
