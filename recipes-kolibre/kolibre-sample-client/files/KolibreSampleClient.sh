@@ -19,7 +19,7 @@ LOG_LEVEL=$(grep -e "^LOG_LEVEL" ${SETTINGS_PATH} | cut -d "=" -f2)
 INPUT_REG=$(grep -e "^INPUT_DEVICE" ${SETTINGS_PATH} | cut -d "=" -f2)
 TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
 if [ "$TMPFS" = "/tmp" ]; then HOME=$TMPFS; fi
-if [ -n "$LANGUAGE" ]; then LANGUAGE=en; fi
+if [ -z "$LANGUAGE" ]; then LANGUAGE=en; fi
 
 export BOOKMARK_DIR=${HOME}/.KolibreSampleClient/bookmarks
 export KOLIBRE_DATA_PATH=${HOME}/.KolibreSampleClient
