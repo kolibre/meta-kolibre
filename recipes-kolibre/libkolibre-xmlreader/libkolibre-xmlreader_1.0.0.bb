@@ -20,8 +20,5 @@ DEPENDS = "autoconf-archive log4cxx curl libxml2 libtidy"
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 
-inherit autotools pkgconfig
+inherit autotools autotools-brokensep pkgconfig
 
-do_configure_prepend() {
-    autoreconf --force -i
-}

@@ -15,6 +15,7 @@ SRC_URI = "https://github.com/kolibre/${PN}/archive/${PN}-${PV}.tar.gz"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://dont_send_book_position_info.patch;apply=yes;striplevel=1"
 SRC_URI += "file://simplified-udisks2-message-parsing.patch;apply=yes;striplevel=1"
+SRC_URI += "file://link-to-boost-system.patch;apply=yes;striplevel=1"
 
 SRC_URI[md5sum] = "3bbe3b6bb991b9325202d264cf541400"
 SRC_URI[sha256sum] = "bb0f9efd4bbfbc7179183a50c25f52c83758916437448ac432ae738a4dcf1632"
@@ -25,11 +26,7 @@ EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.. --with-samples"
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 
-inherit autotools pkgconfig
-
-do_configure_prepend() {
-    autoreconf --force -i
-}
+inherit autotools autotools-brokensep pkgconfig
 
 do_install_append() {
     install -d ${D}${datadir}/${PN}/prompts/en

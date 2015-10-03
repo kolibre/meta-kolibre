@@ -40,7 +40,7 @@ EXTRA_OECONF = " \
 TARGET_CXXFLAGS += "-Wno-error=unused-but-set-variable -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
 TARGET_CFLAGS += "-Wno-error=unused-but-set-variable -Wno-error=uninitialized -Wno-error=maybe-uninitialized"
 
-inherit autotools pkgconfig
+inherit autotools autotools-brokensep pkgconfig
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-bin ${PN}-dev ${PN}-staticdev ${PN}-doc"
 

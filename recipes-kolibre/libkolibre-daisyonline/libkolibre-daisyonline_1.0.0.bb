@@ -19,8 +19,5 @@ DEPENDS = "autoconf-archive log4cxx axis2c"
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 
-inherit autotools pkgconfig
+inherit autotools autotools-brokensep pkgconfig
 
-do_configure_prepend() {
-    autoreconf --force -i
-}

@@ -32,8 +32,5 @@ EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.."
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 
-inherit autotools pkgconfig
+inherit autotools autotools-brokensep pkgconfig
 
-do_configure_prepend() {
-    autoreconf --force -i
-}

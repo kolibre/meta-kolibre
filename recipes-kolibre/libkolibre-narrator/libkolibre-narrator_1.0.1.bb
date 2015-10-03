@@ -21,11 +21,7 @@ EXTRA_OECONF = "--with-boost=${STAGING_LIBDIR}/.."
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 
-inherit autotools pkgconfig
-
-do_configure_prepend() {
-    autoreconf --force -i
-}
+inherit autotools autotools-brokensep pkgconfig
 
 do_install_append() {
     # install wait.ogg file to datadir
