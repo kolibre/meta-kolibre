@@ -5,4 +5,4 @@ IMAGE_FEATUES += "tools-testapps"
 
 IMAGE_INSTALL += "kolibre-sample-client-systemd python-system-buttond udisks-glue-systemd"
 
-export IMAGE_BASENAME = "kolibre-set-top-image"
+export IMAGE_BASENAME = "vadelma"
