@@ -8,7 +8,7 @@ Restart=always
 RestartSec=5s
 TimeoutStopSec=30
 StandardOutput=null
-ExecStart=/usr/bin/udisks-glue
+ExecStart=/usr/bin/udisks-glue --foreground
 
 [Install]
 WantedBy=multi-user.target
