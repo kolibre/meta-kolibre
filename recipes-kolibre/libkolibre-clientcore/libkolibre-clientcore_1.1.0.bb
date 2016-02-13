@@ -15,10 +15,9 @@ SRC_URI = "https://github.com/kolibre/${PN}/archive/${PN}-${PV}.tar.gz"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://dont_send_book_position_info.patch;apply=yes;striplevel=1"
 SRC_URI += "file://simplified-udisks2-message-parsing.patch;apply=yes;striplevel=1"
-SRC_URI += "file://link-boost-libraries-into-library.patch;apply=yes;striplevel=1"
 
-SRC_URI[md5sum] = "3bbe3b6bb991b9325202d264cf541400"
-SRC_URI[sha256sum] = "bb0f9efd4bbfbc7179183a50c25f52c83758916437448ac432ae738a4dcf1632"
+SRC_URI[md5sum] = "1420ea80326464cd2503e8507fce937a"
+SRC_URI[sha256sum] = "0eb4518cb6d7b5673d001d85f8ebfd2c0bc51e75c7edeca0259c26eb9aa8efb9"
 
 DEPENDS = "autoconf-archive boost log4cxx libkolibre-narrator libkolibre-player libkolibre-xmlreader libkolibre-amis libkolibre-daisyonline libkolibre-naviengine glib-2.0 dbus-glib"
 
