@@ -12,8 +12,8 @@ SRC_URI = "https://github.com/kolibre/${PN}/archive/${PN}-${PV}.tar.gz"
 SRC_URI += "file://no_doxygen.patch;apply=yes;striplevel=1"
 SRC_URI += "file://play_wait_from_file.patch;apply=yes;striplevel=1"
 
-SRC_URI[md5sum] = "3788bb3bd9306df790e959e337b3a1e2"
-SRC_URI[sha256sum] = "357894c2e1e46800594e317faf874950840c80ccb97dc580e30e97ec7afb1377"
+SRC_URI[md5sum] = "be697455ef15c90610230a6dab1982ff"
+SRC_URI[sha256sum] = "b9cb02a8914f9d72d6e875cb6f93f105712e468ebd5c8f3d736507bb13153d8f"
 
 DEPENDS = "autoconf-archive boost log4cxx libvorbis mpg123 portaudio-v19 soundtouch sqlite3"
 
