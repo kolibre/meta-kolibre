@@ -76,12 +76,19 @@ def getInput():
         syslog.syslog("Device property was empty. Aborting")
         return None
 
+    defaultKeybord=""
+
     devices = [dev for dev in os.listdir("/dev/input") if "event" in dev]
     for dev in devices:
         out = os.popen("udevadm info /sys/class/input/" + dev).read()
         if re.search(deviceProperty, out):
             return "/dev/input/" + dev
+        if re.search("ID_INPUT_KEYBOARD=1", out):
+            if defaultKeybord == "":
+                defaultKeybord = "/dev/input/" + dev
 
+    if defaultKeybord != "":
+        return defaultKeybord
     return None
 
 def getDeviceProperty():
