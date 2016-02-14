@@ -1,4 +1,4 @@
-require recipes-multimedia/gstreamer-0.10/gst-plugins.inc
+require recipes-multimedia/gstreamer/gst-plugins.inc
 
 LICENSE = "MIT"
 
