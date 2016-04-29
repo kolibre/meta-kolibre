@@ -5,6 +5,13 @@ FILE="/usr/bin/${TAG}"
 
 #echo 1024 > /sys/block/mmcblk0/queue/read_ahead_kb
 
+# Copy wifi settings from mmc to system
+# The right place would be in a own systemd script but I'm not a
+# systemd expert nor do I have time to read up how to do it properly.
+if [ -f /media/mmc1/wifi.config ]; then
+    cp /media/mmc1/wifi.config /var/lib/connman
+fi
+
 SETTINGS_PATH=/usr/share/kolibre-sample-client/settings.ini
 
 if [ -f /media/mmc1/settings.ini ]; then
