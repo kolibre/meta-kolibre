@@ -17,6 +17,10 @@ SRC_URI[md5sum] = "822fed15afa83cc54bf9b06e276fcd3b"
 SRC_URI[sha256sum] = "3dfb87ee21cd3bfeb94a4199bcbf088509d0dcd15d9ccad3320d8ced0f0cc804"
 
 DEPENDS = "autoconf-archive log4cxx curl libxml2 libtidy"
+RDEPENDS_${PN} += "\
+        glibc-gconv-iso8859-1 \
+        glibc-gconv-cp1252 \
+        "
 
 S = "${WORKDIR}/${PN}-${PN}-${PV}"
 

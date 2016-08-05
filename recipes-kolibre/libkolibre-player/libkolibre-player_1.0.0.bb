@@ -18,6 +18,7 @@ SRC_URI[sha256sum] = "e8c532282ea150c94cb17bec2cd64139ad8259b292a14ef30dc58f7f88
 DEPENDS = "autoconf-archive boost log4cxx gstreamer gst-fluendo-mp3 gst-plugins-base gst-plugins-good gst-plugins-bad"
 RDEPENDS_${PN} += "\
         glibc-gconv-iso8859-1 \
+        glibc-gconv-cp1252 \
         gst-fluendo-mp3-flump3dec \
         gst-plugins-base-alsa \
         gst-plugins-base-audioconvert \
