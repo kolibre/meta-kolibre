@@ -84,36 +84,46 @@ if [ -n "${LOG_LEVEL}" ]; then
     fi
 fi
 
+INPUT_DEFAULT=""
 INPUT_DEV=""
-if [ -n "$INPUT_REG" ]; then
-    # Input devices takes longer to setup on older RaspberryPi models,
-    # thus we will wait at most 10 seconds for devices to become ready
-    cd /dev/input
-    max_iterations=10
-    iterations=0
-    while true; do
-        logger -t ${TAG} -p syslog.info -s "Searching for input devices"
-        count=$(find /dev/input/event* | wc -l)
-        if [ $count -gt 0 ]; then
-            for dev in $(ls e*) ; do
+# Input devices takes longer to setup on older RaspberryPi models,
+# thus we will wait at most 10 seconds for devices to become ready
+cd /dev/input
+max_iterations=10
+iterations=0
+while true; do
+    logger -t ${TAG} -p syslog.info -s "Searching for input devices"
+    count=$(find /dev/input/event* | wc -l)
+    if [ $count -gt 0 ]; then
+        for dev in $(ls e*) ; do
+            if [ -z "$INPUT_DEFAULT" ];
+            then
+                if udevadm info /sys/class/input/$dev | grep -i "ID_INPUT_KEYBOARD=1"; then
+                    INPUT_DEFAULT="-d /dev/input/$dev"
+                fi
+            fi
+            if [ -n "$INPUT_REG" ]; then
                 if udevadm info /sys/class/input/$dev | grep -i "$INPUT_REG"; then
                     logger -t ${TAG} -p syslog.info -s "Input device $dev is matching search criteria '$INPUT_REG'"
                     INPUT_DEV="-d /dev/input/$dev"
                     break
                 fi
-            done
-        fi
-        if [ -n "$INPUT_DEV" ]; then
-            break
-        fi
-        iterations=$((iterations + 1))
-        if [ $iterations == $max_iterations ]; then
-            logger -t ${TAG} -p syslog.warning -s "Giving up search for input devices after 10 attempts"
-            break
-        fi
-        sleep 1
-    done
-    cd -
+            fi
+        done
+    fi
+    if [ -n "$INPUT_DEV" ]; then
+        break
+    fi
+    iterations=$((iterations + 1))
+    if [ $iterations == $max_iterations ]; then
+        logger -t ${TAG} -p syslog.warning -s "Giving up search for input devices after 10 attempts"
+        break
+    fi
+    sleep 1
+done
+cd -
+if [ -z "$INPUT_DEV" ] && [ -n "$INPUT_DEFAULT" ]; then
+    INPUT_DEV=$INPUT_DEFAULT
 fi
 
 /usr/bin/KolibreSampleClient -i $SETTINGS_PATH -c $LOG_CONF -l $LANGUAGE -a $USERAGENT $INPUT_DEV
