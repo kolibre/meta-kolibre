@@ -1,5 +1,5 @@
 # Base this image on console-image
-require recipes-images/angstrom/console-image.bb
+require recipes-images/angstrom/systemd-image.bb
 
 IMAGE_FEATUES += "tools-testapps"
 DISTRO_FEATURES += "keyboard"
