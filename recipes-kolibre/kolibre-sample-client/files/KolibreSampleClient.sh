@@ -28,6 +28,9 @@ TMPFS=$(grep -e "^HOME" ${SETTINGS_PATH} | cut -d "=" -f2)
 if [ "$TMPFS" = "/tmp" ]; then HOME=$TMPFS; fi
 if [ -z "$LANGUAGE" ]; then LANGUAGE=en; fi
 
+if [ -z "$HOME" ] || [ "$HOME" -eq "/" ]; then
+    HOME="/home/root"
+fi
 export BOOKMARK_DIR=${HOME}/.KolibreSampleClient/bookmarks
 export KOLIBRE_DATA_PATH=${HOME}/.KolibreSampleClient
 
